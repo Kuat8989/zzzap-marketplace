@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Trading Team - AI Agents Office</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .office-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .agent-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .agent-card:hover::before {
+            left: 100%;
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .agent-info h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .agent-role {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .status.active {
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .status.thinking {
+            background: #f59e0b;
+            animation: pulse 2s infinite;
+        }
+
+        .status.idle {
+            background: #6b7280;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .agent-activity {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            min-height: 100px;
+        }
+
+        .activity-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .activity-log {
+            font-size: 0.9em;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .stats-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #10b981;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        .logs-panel {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border-left: 3px solid #10b981;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .log-time {
+            color: #fbbf24;
+            margin-right: 10px;
+        }
+
+        .ceo { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; }
+        .analyst { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important; }
+        .trader { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important; }
+        .risk { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important; }
+        .strategist { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .agent-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .agent-card:nth-child(1) { animation-delay: 0.1s; }
+        .agent-card:nth-child(2) { animation-delay: 0.2s; }
+        .agent-card:nth-child(3) { animation-delay: 0.3s; }
+        .agent-card:nth-child(4) { animation-delay: 0.4s; }
+        .agent-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏢 Binance Trading Team Office</h1>
+            <p class="subtitle">AI Agents Working 24/7 • Autonomous Trading System</p>
+        </header>
+
+        <div class="office-grid">
+            <!-- CEO Agent -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar ceo">👔</div>
+                    <div class="agent-info">
+                        <h3>CEO</h3>
+                        <p class="agent-role">Chief Executive Officer</p>
+                        <span class="status active" id="ceo-status">ACTIVE</span>
+                    </div>
+                </div>
+                <div class="agent-activity">
+                    <div class="activity-title">📊 Current Activity:</div>
+                    <div class="activity-log" id="ceo-activity">
+                        Координирую работу команды...<br>
+                        Анализирую общую ситуацию на рынке...<br>
+                        Принимаю финальные решения по сделкам...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Analyst Agent -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar analyst">📈</div>
+                    <div class="agent-info">
+                        <h3>Аналитик</h3>
+                        <p class="agent-role">Market Analyst</p>
+                        <span class="status thinking" id="analyst-status">ANALYZING</span>
+                    </div>
+                </div>
+                <div class="agent-activity">
+                    <div class="activity-title">🔍 Current Activity:</div>
+                    <div class="activity-log" id="analyst-activity">
+                        Анализирую RSI индикаторы...<br>
+                        Проверяю SMA тренды...<br>
+                        Ищу перекупленные/перепроданные монеты...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trader Agent -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar trader">💰</div>
+                    <div class="agent-info">
+                        <h3>Трейдер</h3>
+                        <p class="agent-role">Trading Executor</p>
+                        <span class="status active" id="trader-status">READY</span>
+                    </div>
+                </div>
+                <div class="agent-activity">
+                    <div class="activity-title">💸 Current Activity:</div>
+                    <div class="activity-log" id="trader-activity">
+                        Готов к исполнению сделок...<br>
+                        Мониторю баланс портфеля...<br>
+                        Жду сигналов от аналитика...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Manager Agent -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar risk">🛡️</div>
+                    <div class="agent-info">
+                        <h3>Риск-менеджер</h3>
+                        <p class="agent-role">Risk Controller</p>
+                        <span class="status active" id="risk-status">MONITORING</span>
+                    </div>
+                </div>
+                <div class="agent-activity">
+                    <div class="activity-title">⚠️ Current Activity:</div>
+                    <div class="activity-log" id="risk-activity">
+                        Контролирую размеры позиций...<br>
+                        Проверяю стоп-лоссы...<br>
+                        Слежу за общей просадкой портфеля...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategist Agent -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar strategist">🎯</div>
+                    <div class="agent-info">
+                        <h3>Стратег</h3>
+                        <p class="agent-role">Strategy Developer</p>
+                        <span class="status thinking" id="strategist-status">PLANNING</span>
+                    </div>
+                </div>
+                <div class="agent-activity">
+                    <div class="activity-title">🧠 Current Activity:</div>
+                    <div class="activity-log" id="strategist-activity">
+                        Разрабатываю торговые стратегии...<br>
+                        Анализирую исторические данные...<br>
+                        Оптимизирую параметры входа/выхода...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <h2>📊 System Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-trades">0</div>
+                    <div class="stat-label">Total Trades</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="success-rate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="profit">$0</div>
+                    <div class="stat-label">Total Profit</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="uptime">24/7</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs Panel -->
+        <div class="logs-panel">
+            <h2>📝 System Logs (Real-time)</h2>
+            <div id="logs-container">
+                <!-- Logs will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate real-time activity updates
+        const activities = {
+            ceo: [
+                'Координирую работу команды...',
+                'Анализирую общую ситуацию на рынке...',
+                'Принимаю финальные решения по сделкам...',
+                'Проверяю выполнение стратегии...',
+                'Оцениваю риски текущих позиций...'
+            ],
+            analyst: [
+                'Анализирую RSI индикаторы...',
+                'Проверяю SMA тренды...',
+                'Ищу перекупленные/перепроданные монеты...',
+                'Сканирую топ-100 монет по объему...',
+                'Выявляю паттерны разворота тренда...'
+            ],
+            trader: [
+                'Готов к исполнению сделок...',
+                'Мониторю баланс портфеля...',
+                'Жду сигналов от аналитика...',
+                'Проверяю ликвидность рынка...',
+                'Оптимизирую размеры ордеров...'
+            ],
+            risk: [
+                'Контролирую размеры позиций...',
+                'Проверяю стоп-лоссы...',
+                'Слежу за общей просадкой портфеля...',
+                'Анализирую корреляцию активов...',
+                'Оцениваю волатильность рынка...'
+            ],
+            strategist: [
+                'Разрабатываю торговые стратегии...',
+                'Анализирую исторические данные...',
+                'Оптимизирую параметры входа/выхода...',
+                'Тестирую новые индикаторы...',
+                'Адаптирую стратегию под текущий рынок...'
+            ]
+        };
+
+        function updateActivity(agent) {
+            const activityElement = document.getElementById(`${agent}-activity`);
+            const agentActivities = activities[agent];
+            const randomActivities = [];
+            
+            for (let i = 0; i < 3; i++) {
+                const randomIndex = Math.floor(Math.random() * agentActivities.length);
+                randomActivities.push(agentActivities[randomIndex]);
+            }
+            
+            activityElement.innerHTML = randomActivities.join('<br>');
+        }
+
+        function addLog(message) {
+            const logsContainer = document.getElementById('logs-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ru-RU');
+            
+            logEntry.innerHTML = `<span class="log-time">[${timeString}]</span>${message}`;
+            
+            logsContainer.insertBefore(logEntry, logsContainer.firstChild);
+            
+            // Keep only last 20 logs
+            while (logsContainer.children.length > 20) {
+                logsContainer.removeChild(logsContainer.lastChild);
+            }
+        }
+
+        // Update activities every 5 seconds
+        setInterval(() => {
+            const agents = ['ceo', 'analyst', 'trader', 'risk', 'strategist'];
+            agents.forEach(agent => updateActivity(agent));
+        }, 5000);
+
+        // Add random logs
+        const logMessages = [
+            '✅ CEO: Команда готова к работе',
+            '📊 Аналитик: Обнаружен сигнал на покупку BTC',
+            '💰 Трейдер: Исполнена сделка BUY ETH',
+            '🛡️ Риск-менеджер: Все позиции в пределах лимитов',
+            '🎯 Стратег: Обновлена торговая стратегия',
+            '📈 Аналитик: RSI показывает перепроданность',
+            '💸 Трейдер: Сделка закрыта с прибылью +2.5%',
+            '⚠️ Риск-менеджер: Активирован стоп-лосс',
+            '🔍 Аналитик: Сканирование рынка завершено',
+            '👔 CEO: Принято решение о входе в позицию'
+        ];
+
+        setInterval(() => {
+            const randomMessage = logMessages[Math.floor(Math.random() * logMessages.length)];
+            addLog(randomMessage);
+        }, 3000);
+
+        // Initial logs
+        addLog('🚀 Система запущена и готова к работе');
+        addLog('✅ Все агенты инициализированы');
+        addLog('🔗 Подключение к Binance API установлено');
+
+        // Update stats (simulated)
+        let trades = 0;
+        setInterval(() => {
+            trades += Math.floor(Math.random() * 2);
+            document.getElementById('total-trades').textContent = trades;
+            
+            const successRate = 65 + Math.floor(Math.random() * 10);
+            document.getElementById('success-rate').textContent = successRate + '%';
+            
+            const profit = (trades * 15.5).toFixed(2);
+            document.getElementById('profit').textContent = '$' + profit;
+        }, 10000);
+    </script>
+</body>
+</html>

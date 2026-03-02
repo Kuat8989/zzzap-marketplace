@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2026-03-01T18:56:18.996934",
+    "action": "BUY",
+    "symbol": "FIOUSDT",
+    "quantity": 500.0,
+    "price": null,
+    "order_id": 558786666,
+    "status": "FILLED"
+  },
+  {
+    "timestamp": "2026-03-02T16:59:21.655095",
+    "action": "SELL",
+    "symbol": "FIOUSDT",
+    "quantity": 499.0,
+    "price": null,
+    "order_id": 560031134,
+    "status": "FILLED"
+  }
+]

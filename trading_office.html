@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance AI Trading Office</title>
+    <style>
+        body {
+            background-color: #1a1b26;
+            color: #a9b1d6;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 { color: #7aa2f7; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .office {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background: #24283b;
+            border: 2px solid #414868;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 20px;
+            background-image: 
+                radial-gradient(#414868 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .desk {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            background: #565f89;
+            border-radius: 5px;
+            border-bottom: 4px solid #414868;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .monitor {
+            position: absolute;
+            top: -20px;
+            width: 40px;
+            height: 30px;
+            background: #16161e;
+            border: 2px solid #7aa2f7;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            color: #9ece6a;
+        }
+
+        .agent {
+            font-size: 40px;
+            position: absolute;
+            bottom: -20px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .agent:hover { transform: scale(1.1); }
+
+        .name-tag {
+            position: absolute;
+            bottom: -40px;
+            background: #16161e;
+            color: #7aa2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .bubble {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #c0caf5;
+            color: #1a1b26;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: #c0caf5 transparent transparent transparent;
+        }
+
+        .bubble.active { opacity: 1; }
+
+        /* Positions */
+        #desk-quant { top: 100px; left: 100px; }
+        #desk-risk { top: 100px; right: 100px; }
+        #desk-macro { top: 250px; left: 100px; }
+        #desk-onchain { top: 250px; right: 100px; }
+        
+        /* Chief Desk */
+        #desk-chief {
+            top: 380px;
+            left: 350px;
+            width: 140px;
+            height: 70px;
+            background: #7aa2f7;
+            border-bottom-color: #3d59a1;
+        }
+        #desk-chief .name-tag { color: #bb9af7; font-weight: bold; }
+        
+        .panel {
+            margin-top: 20px;
+            background: #16161e;
+            padding: 15px;
+            border-radius: 8px;
+            width: 770px;
+            border: 1px solid #414868;
+        }
+
+        .log-entry { margin: 5px 0; font-size: 13px; }
+        .log-time { color: #9ece6a; }
+        .log-agent { color: #7aa2f7; font-weight: bold; }
+        .log-msg { color: #c0caf5; }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #9ece6a;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1><span class="status-dot"></span>Binance AI Trading Team</h1>
+    <p>AUTO-EXECUTION: <strong>ACTIVE</strong> | BALANCE: <strong>7.76 USDT</strong></p>
+
+    <div class="office">
+        <!-- Quant / Analyst -->
+        <div class="desk" id="desk-quant">
+            <div class="monitor">📈</div>
+            <div class="agent">🤓</div>
+            <div class="name-tag">Квант (Аналитик)</div>
+            <div class="bubble" id="bubble-quant">Z-score > 2.0!</div>
+        </div>
+
+        <!-- Risk Manager -->
+        <div class="desk" id="desk-risk">
+            <div class="monitor">🛡️</div>
+            <div class="agent">👮‍♂️</div>
+            <div class="name-tag">Риск-Менеджер</div>
+            <div class="bubble" id="bubble-risk">Просадка в норме.</div>
+        </div>
+
+        <!-- Macro / News -->
+        <div class="desk" id="desk-macro">
+            <div class="monitor">📰</div>
+            <div class="agent">🕵️‍♂️</div>
+            <div class="name-tag">Макро-Экономист</div>
+            <div class="bubble" id="bubble-macro">ФРС ставку держит.</div>
+        </div>
+
+        <!-- On-Chain -->
+        <div class="desk" id="desk-onchain">
+            <div class="monitor">⛓️</div>
+            <div class="agent">🤖</div>
+            <div class="name-tag">Ончейн-Ищейка</div>
+            <div class="bubble" id="bubble-onchain">Киты залили USDT.</div>
+        </div>
+
+        <!-- CEO / Chief -->
+        <div class="desk" id="desk-chief">
+            <div class="monitor" style="width: 60px;">⚡ BINANCE</div>
+            <div class="agent" style="font-size: 50px; bottom: -25px;">🧠</div>
+            <div class="name-tag">Главный ИИ (CEO)</div>
+            <div class="bubble" id="bubble-chief" style="top: -70px; background: #bb9af7;">ИСПОЛНЯЮ СДЕЛКУ!</div>
+        </div>
+    </div>
+
+    <div class="panel" id="terminal">
+        <div class="log-entry">
+            <span class="log-time">[SYSTEM]</span> 
+            <span class="log-msg">Инициализация виртуального офиса... Автоисполнение включено.</span>
+        </div>
+    </div>
+
+    <script>
+        const agents = ['quant', 'risk', 'macro', 'onchain', 'chief'];
+        const terminal = document.getElementById('terminal');
+
+        const phrases = {
+            quant: [
+                "Спред BTC/ETH сужается...", 
+                "Z-score превысил 2.1!", 
+                "Корреляция нарушена, ищу вход.", 
+                "Считаю ATR для сайзинга..."
+            ],
+            risk: [
+                "Риск на сделку 2% капитала.", 
+                "Стоп-лосс установлен жестко.", 
+                "Баланс 7.76 USDT, торгуем аккуратно.", 
+                "Маркет-нейтральность соблюдена."
+            ],
+            macro: [
+                "SP500 в зеленой зоне.", 
+                "Индекс страха и жадности: 72.", 
+                "Новостей по ETF пока нет.", 
+                "Парсю твиттер Илона Маска..."
+            ],
+            onchain: [
+                "Приток стейблов на Binance.", 
+                "Крупная транзакция в сети ETH.", 
+                "Gas fee падает.", 
+                "Кошелек фонда купил LINK."
+            ],
+            chief: [
+                "Жду подтверждения от всех...",
+                "Сигнал принят. Ожидаю момент.",
+                "Риски в норме? Исполняем!",
+                "Автоторговля: позиция открыта."
+            ]
+        };
+
+        function logToTerminal(agent, msg) {
+            const time = new Date().toLocaleTimeString('ru-RU');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            let agentName = agent.toUpperCase();
+            let color = '#7aa2f7';
+            if (agent === 'chief') color = '#bb9af7';
+            if (agent === 'risk') color = '#e0af68';
+
+            entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-agent" style="color:${color}">${agentName}:</span> <span class="log-msg">${msg}</span>`;
+            terminal.appendChild(entry);
+            
+            if (terminal.children.length > 6) {
+                terminal.removeChild(terminal.children[1]); // keep system init
+            }
+        }
+
+        function speak(agentId, text) {
+            const bubble = document.getElementById(`bubble-${agentId}`);
+            bubble.innerText = text;
+            bubble.classList.add('active');
+            logToTerminal(agentId, text);
+            
+            setTimeout(() => {
+                bubble.classList.remove('active');
+            }, 3000);
+        }
+
+        // Random chatter
+        setInterval(() => {
+            const randomAgent = agents[Math.floor(Math.random() * 4)]; // exclude chief from random
+            const randomPhrase = phrases[randomAgent][Math.floor(Math.random() * phrases[randomAgent].length)];
+            speak(randomAgent, randomPhrase);
+        }, 4000);
+
+        // Trading sequence simulation
+        setInterval(() => {
+            setTimeout(() => speak('quant', "🚨 НАЙДЕН АРБИТРАЖ: ADA/DOT Z-score = 2.45"), 0);
+            setTimeout(() => speak('risk', "Подтверждаю. Риск-профиль пройден."), 2000);
+            setTimeout(() => speak('onchain', "Ликвидность в стакане достаточная."), 4000);
+            setTimeout(() => speak('chief', "🔥 ПРИНЯТО. ИСПОЛНЯЮ СДЕЛКУ: LONG ADA, SHORT DOT!"), 6000);
+        }, 15000);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zzzap! — Скоро запуск ⚡️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #fff;
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px #ff00ff,
+                0 0 40px #ff00ff,
+                0 0 80px #ff00ff;
+            animation: pulsate 1.5s infinite alternate;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            margin-top: -20px;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+        }
+
+        @keyframes pulsate {
+            0% { text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff; }
+            100% { text-shadow: 0 0 20px #fff, 0 0 40px #ff00ff, 0 0 80px #ff00ff; }
+        }
+
+        /* Lightning Effect (Simple CSS) */
+        .lightning {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, #00ffff 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, #ff00ff 50%, transparent 52%);
+            background-size: 200% 200%;
+            animation: lightning-flash 5s infinite;
+        }
+
+        @keyframes lightning-flash {
+            0%, 90% { opacity: 0; }
+            92% { opacity: 0.8; filter: brightness(2); }
+            94% { opacity: 0; }
+            96% { opacity: 0.8; filter: brightness(2); }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lightning"></div>
+
+    <div class="container">
+        <h1>ZZZAP!</h1>
+        <p>РЕВОЛЮЦИЯ В ШОПИНГЕ</p>
+        <button class="btn" onclick="alert('Скоро! Следите за новостями.')">ХОЧУ GOLD СТАТУС</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="3">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zzzap! HQ + Creative Studio 🦄</title>
+    <style>
+        body { font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #050505; color: #fff; padding: 40px; }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 50px; 
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        .logo { font-size: 32px; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; background: linear-gradient(90deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .system-status { font-size: 12px; font-weight: bold; color: #00ff00; letter-spacing: 1px; }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 20px;
+            border-left: 3px solid #666;
+            padding-left: 10px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        
+        .card { 
+            background: #111; 
+            border: 1px solid #222; 
+            border-radius: 12px; 
+            padding: 20px; 
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { border-color: #444; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .role-badge { 
+            position: absolute; top: 15px; right: 15px; 
+            font-size: 9px; font-weight: bold; text-transform: uppercase; 
+            padding: 3px 6px; border-radius: 4px; background: #222; color: #888; 
+        }
+
+        .avatar { width: 32px; height: 32px; background: #222; border-radius: 50%; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .name { font-size: 16px; font-weight: bold; margin-bottom: 3px; color: #fff; }
+        .position { font-size: 12px; color: #666; margin-bottom: 15px; }
+        
+        .log-terminal { 
+            background: #0a0a0a; 
+            border-radius: 6px; 
+            padding: 8px; 
+            margin-top: 10px; 
+            font-family: 'Courier New', monospace; 
+            font-size: 10px; 
+            color: #888; 
+            height: 60px; 
+            overflow-y: auto; 
+        }
+
+        /* HQ Roles (Serious) */
+        .cpo { border-top: 2px solid #007bff; }
+        .cgo { border-top: 2px solid #28a745; }
+        .cto { border-top: 2px solid #ffc107; }
+        .cfo { border-top: 2px solid #dc3545; }
+        .sake { border-top: 2px solid #fff; }
+        .senior-dev { border-top: 2px solid #8e44ad; }
+
+        /* CREATIVE STUDIO (Vibrant) */
+        .studio-reels { border-top: 2px solid #ff00ff; box-shadow: 0 0 10px rgba(255, 0, 255, 0.1); }
+        .studio-copy { border-top: 2px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.1); }
+        .studio-trend { border-top: 2px solid #ffff00; box-shadow: 0 0 10px rgba(255, 255, 0, 0.1); }
+        .studio-community { border-top: 2px solid #ff4500; box-shadow: 0 0 10px rgba(255, 69, 0, 0.1); }
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">Zzzap! <span style="font-weight: 300; opacity: 0.5;">Inc.</span></div>
+    <div class="system-status">● SYSTEM OPERATIONAL</div>
+</div>
+
+<!-- HEADQUARTERS SECTION -->
+<div class="section-title">Headquarters (Strategy & Tech)</div>
+<div class="grid">
+    <!-- SAKE -->
+    <div class="card sake">
+        <div class="role-badge">Admin</div>
+        <div class="avatar">🤖</div>
+        <div class="name">Sake (Coordinator)</div>
+        <div class="position">Chief of Staff</div>
+        <div class="log-terminal">> Orchestrating all departments.</div>
+    </div>
+    <!-- CPO -->
+    <div class="card cpo">
+        <div class="role-badge">Product</div>
+        <div class="avatar">🧠</div>
+        <div class="name">Product Visionary</div>
+        <div class="position">CPO (Ex-TikTok)</div>
+        <div class="log-terminal">> UX Retention Strategy ready.</div>
+    </div>
+    <!-- CGO -->
+    <div class="card cgo">
+        <div class="role-badge">Growth</div>
+        <div class="avatar">🚀</div>
+        <div class="name">Growth Hacker</div>
+        <div class="position">CGO (Ex-Uber)</div>
+        <div class="log-terminal">> Preparing 0$ CAC plan.</div>
+    </div>
+    <!-- CTO -->
+    <div class="card cto">
+        <div class="role-badge">Tech</div>
+        <div class="avatar">💻</div>
+        <div class="name">Tech Architect</div>
+        <div class="position">CTO (Ex-Google)</div>
+        <div class="log-terminal">> Scalable MVP architecture.</div>
+    </div>
+    <!-- SENIOR DEV -->
+    <div class="card senior-dev">
+        <div class="role-badge">Engineering</div>
+        <div class="avatar">👨‍💻</div>
+        <div class="name">10x Engineer</div>
+        <div class="position">Senior Full Stack (Ex-Google/Apple)</div>
+        <div class="log-terminal">
+            > Optimizing backend latency.<br>
+            > Polishing frontend UI.
+        </div>
+    </div>
+    <!-- CFO -->
+    <div class="card cfo">
+        <div class="role-badge">Finance</div>
+        <div class="avatar">💰</div>
+        <div class="name">Wall St. Wolf</div>
+        <div class="position">CFO (Ex-Goldman)</div>
+        <div class="log-terminal">> Investment Memo analyzed.</div>
+    </div>
+</div>
+
+<!-- CREATIVE STUDIO SECTION -->
+<div class="section-title" style="border-color: #ff00ff; color: #ff00ff;">Creative Studio (Content & Viral)</div>
+<div class="grid">
+    <!-- REELS PRODUCER -->
+    <div class="card studio-reels">
+        <div class="role-badge">Video</div>
+        <div class="avatar">🎬</div>
+        <div class="name">Mr. Beast Junior</div>
+        <div class="position">Reels Producer (Retention King)</div>
+        <div class="log-terminal">
+            > Hook: 0-3s attention grab.<br>
+            > Ready to script viral videos.
+        </div>
+    </div>
+
+    <!-- PSYCHOLOGY COPYWRITER -->
+    <div class="card studio-copy">
+        <div class="role-badge">Text</div>
+        <div class="avatar">✍️</div>
+        <div class="name">Neuro-Copywriter</div>
+        <div class="position">Ex-Ogilvy (NLP Master)</div>
+        <div class="log-terminal">
+            > Triggers: FOMO, Status, Greed.<br>
+            > Waiting for product brief.
+        </div>
+    </div>
+
+    <!-- TREND HUNTER -->
+    <div class="card studio-trend">
+        <div class="role-badge">Trends</div>
+        <div class="avatar">🌪️</div>
+        <div class="name">Trend Hunter</div>
+        <div class="position">TikTok Algorithm Expert</div>
+        <div class="log-terminal">
+            > Scanning Douyin/TikTok US...<br>
+            > Found 3 potential sounds.
+        </div>
+    </div>
+
+    <!-- COMMUNITY MANAGER -->
+    <div class="card studio-community">
+        <div class="role-badge">Social</div>
+        <div class="avatar">💬</div>
+        <div class="name">Community Ninja</div>
+        <div class="position">Engagement Manager</div>
+        <div class="log-terminal">
+            > Ready to spark discussions.<br>
+            > Haters = Engagement.
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 50px; text-align: center; color: #444; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">
+    Zzzap! Internal System • Last Update: <span id="time"></span>
+</div>
+
+<script>
+    document.getElementById('time').innerText = new Date().toLocaleTimeString();
+</script>
+
+</body>
+</html>
